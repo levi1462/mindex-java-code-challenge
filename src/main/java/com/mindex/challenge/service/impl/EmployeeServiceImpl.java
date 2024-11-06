@@ -2,6 +2,7 @@ package com.mindex.challenge.service.impl;
 
 import com.mindex.challenge.dao.EmployeeRepository;
 import com.mindex.challenge.data.Employee;
+import com.mindex.challenge.data.ReportingStructure;
 import com.mindex.challenge.service.EmployeeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,5 +46,34 @@ public class EmployeeServiceImpl implements EmployeeService {
         LOG.debug("Updating employee [{}]", employee);
 
         return employeeRepository.save(employee);
+    }
+
+    @Override
+    public ReportingStructure getReportingStructure(String id) {
+        // Get employee for corresponding id
+        Employee employee = read(id);
+        // Call helper function to calculate number of reports
+        int numberOfReports = calculateNumberOfReports(employee);
+        // Return ReportingStructure with employee and calculated reports
+        return new ReportingStructure(employee, numberOfReports);
+    }
+
+    private int calculateNumberOfReports(Employee employee) {
+        int totalReports = 0;
+
+        // Verify employee has reports
+        if (employee.getDirectReports() != null) {
+            // Iterate through employees current directReports
+            for (Employee directReport : employee.getDirectReports()) {
+                // Get the directReports's complete Employee object
+                Employee subordinate = read(directReport.getEmployeeId());
+
+                // Recursively call calculateNumberOfReports on current directReport of employee
+                // to calculate total directReports
+                totalReports += 1 + calculateNumberOfReports(subordinate);
+            }
+        }
+
+        return totalReports;
     }
 }
