@@ -10,5 +10,6 @@ public interface EmployeeService {
 
     Employee update(Employee employee);
 
+    // Added new method to service to return employee reporting structure
     ReportingStructure getReportingStructure(String id);
 }

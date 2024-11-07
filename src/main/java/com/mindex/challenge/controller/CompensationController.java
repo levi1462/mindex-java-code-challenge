@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,14 +22,14 @@ public class CompensationController {
     @PostMapping("/compensation")
     public Compensation create(@RequestBody Compensation compensation) {
         LOG.debug("Received compensation create request for [{}]", compensation);
-
+        // Call compensation service to create compensation and store in mongodb
         return compensationService.create(compensation);
     }
 
     @GetMapping("/compensation/{id}")
     public Compensation read(@PathVariable String id) {
         LOG.debug("Received get compensation request for employeeId [{}]", id);
-
+        // Call compensation service to read compenasation from mongodb
         return compensationService.read(id);
     }
 

@@ -1,13 +1,11 @@
 package com.mindex.challenge.data;
 
-import java.util.Date;
-
 public class Compensation {
     private Employee employee;
     private double salary;
-    private Date effectiveDate;
+    private String effectiveDate;
 
-    public Compensation(Employee employee, double salary, Date effectiveDate) {
+    public Compensation(Employee employee, double salary, String effectiveDate) {
         this.employee = employee;
         this.salary = salary;
         this.effectiveDate = effectiveDate;
@@ -30,11 +28,11 @@ public class Compensation {
         this.salary = salary;
     }
 
-    public Date getEffectiveDate() {
+    public String getEffectiveDate() {
         return effectiveDate;
     }
 
-    public void setEffectiveDate(Date effectiveDate) {
+    public void setEffectiveDate(String effectiveDate) {
         this.effectiveDate = effectiveDate;
     }
 }
